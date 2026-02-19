@@ -675,16 +675,17 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .reveal {
+  /* reveal: only hidden when JS has loaded, so no blank page if JS is slow */
+  .js-ready .reveal {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.88s cubic-bezier(.25,.46,.45,.94),
                 transform 0.88s cubic-bezier(.25,.46,.45,.94);
   }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .d1 { transition-delay: 0.1s; }
-  .d2 { transition-delay: 0.22s; }
-  .d3 { transition-delay: 0.34s; }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+  .js-ready .d1 { transition-delay: 0.1s; }
+  .js-ready .d2 { transition-delay: 0.22s; }
+  .js-ready .d3 { transition-delay: 0.34s; }
 
   /* ===== HAMBURGER MENU ===== */
   .hamburger {
@@ -1129,5 +1130,13 @@ window.addEventListener('scroll', () => {
 });
 
 /* ===== SCROLL REVEAL ===== */
+// Mark body so reveal CSS activates only when JS runs
+document.body.classList.add('js-ready');
+
 const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersectin
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
