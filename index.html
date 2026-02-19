@@ -227,14 +227,11 @@
   .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
 
   .scroll-hint {
-    position: absolute;
-    bottom: 36px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    margin-top: 60px;
     opacity: 0;
     animation: fadeUp 1s 2.1s forwards;
   }
@@ -689,26 +686,170 @@
   .d2 { transition-delay: 0.22s; }
   .d3 { transition-delay: 0.34s; }
 
-  /* ===== RESPONSIVE ===== */
+  /* ===== HAMBURGER MENU ===== */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 300;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--cream);
+    transition: transform 0.35s, opacity 0.35s, width 0.35s;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(5,6,16,0.97);
+    backdrop-filter: blur(24px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .mobile-menu a {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(240,236,228,0.7);
+    text-decoration: none;
+    padding: 18px 0;
+    transition: color 0.3s;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    width: 260px;
+    text-align: center;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  /* ===== TABLET ===== */
   @media (max-width: 960px) {
     nav { padding: 20px 28px; }
     nav ul { display: none; }
-    .about-wrap { grid-template-columns: 1fr; gap: 52px; padding: 80px 28px; }
-    .focus-section { padding: 80px 28px; }
-    .focus-grid { grid-template-columns: 1fr; }
-    .team-section { padding: 80px 28px; }
-    .team-featured { grid-template-columns: 1fr; padding: 36px 28px; gap: 36px; }
-    .team-row { grid-template-columns: 1fr; }
-    .philosophy { padding: 80px 28px; }
-    footer { padding: 60px 28px 40px; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+
+    .hero { padding: 110px 28px 80px; }
+    .hero-r-logo { width: 110px; }
+
+    .about-wrap {
+      grid-template-columns: 1fr;
+      gap: 52px;
+      padding: 90px 28px;
+    }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+
+    .focus-section { padding: 90px 28px; }
+    .focus-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+
+    .team-section { padding: 90px 28px; }
+    .team-featured {
+      grid-template-columns: 1fr;
+      padding: 40px 28px;
+      gap: 36px;
+    }
+    .ceo-photo { aspect-ratio: 4/3; object-position: top center; }
+    .team-row { grid-template-columns: 1fr 1fr; }
+
+    .philosophy { padding: 90px 28px; }
+    footer { padding: 64px 28px 40px; }
     .footer-links { flex-wrap: wrap; justify-content: center; gap: 18px; }
-    .hero { padding: 120px 28px 90px; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    nav { padding: 18px 20px; }
+    .nav-wordmark { font-size: 0.9rem; }
+
+    .hero { padding: 100px 20px 60px; min-height: 100svh; }
+    .hero-r-logo { width: 90px; margin-bottom: 24px; }
+    .hero-tagline { font-size: 0.56rem; letter-spacing: 0.28em; }
+    .hero h1 { font-size: clamp(2.8rem, 13vw, 4.5rem); }
+    .hero-sub { font-size: 0.78rem; letter-spacing: 0.22em; }
+    .hero-desc { font-size: 0.82rem; margin-top: 28px; }
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 36px;
+    }
+    .btn-primary, .btn-outline {
+      width: 100%;
+      max-width: 280px;
+      text-align: center;
+      padding: 16px 28px;
+    }
+    .scroll-hint { margin-top: 40px; }
+
+    .about-wrap { padding: 70px 20px; gap: 40px; }
+    .section-heading { font-size: clamp(2rem, 9vw, 2.8rem); }
+    .stat-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+    .stat-card { padding: 28px 16px; }
+    .stat-card .number { font-size: 2.2rem; }
+
+    .focus-section { padding: 70px 20px; }
+    .focus-grid { grid-template-columns: 1fr; }
+    .focus-card { padding: 36px 24px; }
+
+    .team-section { padding: 70px 20px; }
+    .team-featured { padding: 28px 20px; gap: 28px; }
+    .team-name { font-size: 2rem; }
+    .team-row { grid-template-columns: 1fr; }
+    .team-member { padding: 32px 24px; }
+
+    .philosophy { padding: 70px 20px; }
+    .philosophy blockquote { font-size: clamp(1.2rem, 5.5vw, 1.8rem); }
+
+    footer { padding: 52px 20px 36px; gap: 28px; }
+    .footer-links { gap: 14px; }
+    .footer-links a { font-size: 0.6rem; }
+    .watermark-r { display: none; }
+  }
+
+  /* Prevent hover effects on touch */
+  @media (hover: none) {
+    .focus-card:hover,
+    .stat-card:hover,
+    .team-member:hover { transform: none; }
   }
 </style>
 </head>
 <body>
 
 <canvas id="stars"></canvas>
+
+<!-- MOBILE MENU DRAWER -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about"   onclick="closeMenu()">About</a>
+  <a href="#focus"   onclick="closeMenu()">Focus</a>
+  <a href="#team"    onclick="closeMenu()">Team</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
 
 <!-- NAV -->
 <nav id="main-nav">
@@ -725,6 +866,9 @@
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -889,12 +1033,12 @@
     <li><a href="#about">About</a></li>
     <li><a href="#focus">Focus Areas</a></li>
     <li><a href="#team">Team</a></li>
-    <li><a href="mailto:info@rahmanityinnovations.com">Contact</a></li>
+    <li><a href="/cdn-cgi/l/email-protection#f990979f96b98b9891949897908d80909797968f988d9096978ad79a9694">Contact</a></li>
   </ul>
   <p class="footer-copy">&copy; 2025 Rahmanity Innovations, LLC. All rights reserved.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ===== STAR FIELD + SHOOTING STARS ===== */
 const canvas = document.getElementById('stars');
 const ctx = canvas.getContext('2d');
@@ -960,6 +1104,24 @@ function draw(t) {
 }
 draw(0);
 
+/* ===== HAMBURGER ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+let menuOpen = false;
+
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  hamburger.classList.toggle('open', menuOpen);
+  mobileMenu.classList.toggle('open', menuOpen);
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+}
+function closeMenu() {
+  menuOpen = false;
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 /* ===== NAV SCROLL ===== */
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => {
@@ -968,9 +1130,4 @@ window.addEventListener('scroll', () => {
 
 /* ===== SCROLL REVEAL ===== */
 const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-</script>
-</body>
-</html>
+  entries.forEach(e => { if (e.isIntersectin
